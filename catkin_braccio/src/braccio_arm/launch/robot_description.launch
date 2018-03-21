@@ -1,0 +1,23 @@
+<launch>
+  
+  <!-- Parsing xacro and loading robot_description parameter -->
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find braccio_arm)/urdf/braccio_arm.xacro" />
+
+
+  <!-- Setting gui parameter to true for display joint slider, for getting joint control -->
+  <param name="use_gui" value="true"/>
+
+  <!-- Starting Joint state publisher node which will publish the joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+
+  <!--Publish robot state to TF-->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+   <!-- <remap from="/joint_states" to="/braccio_arm/joint_states" /> -->
+  </node>
+
+  <node name="joint_state_relay" pkg="topic_tools" type="relay"
+    args="/joint_states"/>
+
+</launch>
+

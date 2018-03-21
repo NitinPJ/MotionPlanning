@@ -1,0 +1,9 @@
+<launch>
+  <!--Load the joint controllers to param server-->
+  <rosparam file="$(find braccio_arm)/config/braccio_arm_control.yaml" command="load"/>
+
+  <!--Load controllers-->
+  <node name="spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/braccio_arm" args="base_joint_position_controller shoulder_joint_position_controller elbow_joint_position_controller wrist_pitch_joint_position_controller wrist_roll_joint_position_controller"/>
+</launch>
+        
